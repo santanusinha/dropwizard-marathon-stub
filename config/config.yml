@@ -1,0 +1,22 @@
+server:
+  applicationConnectors:
+    - type: http
+      port: 8080
+  adminConnectors:
+    - type: http
+      port: 8081
+  applicationContextPath: /
+
+discovery:
+  namespace: demo
+  environment: dev
+  zookeeper: ${ZK_CONNECTION_STRING}
+  publishedHost: ${HOST}
+  publishedPort: ${PORT_8080}
+  connectionRetryIntervalMillis: 5000
+  initialRotationStatus: true
+
+logging:
+  level: INFO
+  appenders:
+    - type: console

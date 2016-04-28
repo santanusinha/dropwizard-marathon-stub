@@ -1,5 +1,6 @@
 package io.appform.dropwizard.demo;
 
+import com.codahale.metrics.health.HealthCheck;
 import io.dropwizard.Application;
 import io.dropwizard.configuration.EnvironmentVariableSubstitutor;
 import io.dropwizard.configuration.SubstitutingSourceProvider;
@@ -37,7 +38,13 @@ public class App extends Application<AppConfig> {
 
     @Override
     public void run(AppConfig appConfig, Environment environment) throws Exception {
-        environment.jersey().register(new HelloResource(appConfig.getName()));
+        environment.jersey().register(new HelloResource());
+        environment.healthChecks().register("dummy", new HealthCheck() {
+            @Override
+            protected Result check() throws Exception {
+                return Result.healthy();
+            }
+        });
     }
 
 

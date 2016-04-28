@@ -13,16 +13,11 @@ import java.util.Collections;
 @Produces(MediaType.APPLICATION_JSON)
 @Path("/hello")
 public class HelloResource {
-    private final String name;
-
-    public HelloResource(String name) {
-        this.name = name;
-    }
 
     @GET
     public Response hello() {
         return Response.ok()
-                    .entity(Collections.singletonMap("message", "Hello name"))
+                    .entity(Collections.singletonMap("message", "Hello people!!"))
                     .build();
     }
 

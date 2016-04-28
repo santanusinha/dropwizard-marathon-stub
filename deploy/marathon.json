@@ -1,0 +1,53 @@
+{
+  "id": "/demo",
+  "cpus": 0.5,
+  "mem": 512,
+  "requirePorts": true,
+  "instances": 1,
+  "container": {
+    "type": "DOCKER",
+    "docker": {
+      "image": "santanusinha/docker-demo-service",
+      "network": "BRIDGE",
+      "portMappings": [
+        {
+          "containerPort": 8080,
+          "hostPort": 0,
+          "protocol": "tcp"
+        },
+        {
+          "containerPort": 8081,
+          "hostPort": 0,
+          "protocol": "tcp"
+        }
+      ],
+      "privileged": false,
+      "forcePullImage": true
+    }
+  },
+  "env": {
+    "ZK_CONNECTION_STRING" : "stg-mesosm001:2181"
+  },
+  "labels": {
+    "traefik.portIndex": "0",
+    "traefik.enable": "true"
+  },
+  "healthChecks": [
+    {
+      "protocol": "HTTP",
+      "path": "/healthcheck",
+      "gracePeriodSeconds": 3,
+      "intervalSeconds": 10,
+      "portIndex": 1,
+      "timeoutSeconds": 10,
+      "maxConsecutiveFailures": 3
+    }
+  ],
+  "backoffSeconds": 1,
+  "backoffFactor": 1.15,
+  "maxLaunchDelaySeconds": 3600,
+  "upgradeStrategy": {
+    "minimumHealthCapacity": 0.5,
+    "maximumOverCapacity": 0.2
+  }
+}

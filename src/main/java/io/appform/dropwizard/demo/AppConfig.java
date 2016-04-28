@@ -11,8 +11,6 @@ import javax.validation.constraints.NotNull;
  * Application config.
  */
 public class AppConfig extends Configuration {
-    private String name;
-
     @JsonProperty
     @NotNull
     @Valid
@@ -22,11 +20,4 @@ public class AppConfig extends Configuration {
         return discovery;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }
